@@ -3,4 +3,4 @@ sqldata.py
 svndata.py
 __pycache__
 python.env
-.svn/
+.svn
