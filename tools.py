@@ -218,7 +218,8 @@ class TSerie:
             self.val_tab = ( self.val_tab -
                 (self.mjd_tab*fit[0]+fit[1]) )
         except:
-            print('rm drift problem')
+            pass
+            # print('rm drift problem')
 
     def split(self, min_gap_s = 8):
         if self.len==0:
