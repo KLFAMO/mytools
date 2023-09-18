@@ -8,9 +8,7 @@ import allantools as al
 from astropy.convolution import Gaussian1DKernel , convolve
 import pytz
 from time_tools import *
-#import sqldata as sqd
 
-#-------------------------------------------------------------
 class Variables:
     def __init__(self,widget=0):
         self.list = {}
@@ -21,7 +19,6 @@ class Variables:
         self.list.update({ obj.label : obj})
         self.len=len(self.list)
 
-#-----------------------------------------------------------
 
 class TimePeriod:
     def __init__(self, start, stop):
@@ -45,9 +42,11 @@ class TimePeriod:
                 start = min(self.start, b.start)
                 stop = max(self.stop, b.stop)
                 return TimePeriod(start,stop)
-        return None  
+        return None
 
-#--------------------------------------------------------------------------    
+    def len(self):
+        return self.stop-self.start
+   
 
 class TimePeriods:
     def __init__(self, periods=None):
@@ -108,6 +107,11 @@ class TimePeriods:
             return TimePeriods(periods=outPeriods)
         return None
             
+    def totalTimeWithoutGaps(self):
+        acc = 0
+        for x in self.periods:
+            acc = acc+x.len()
+        return acc
 
 
 #-----------------------------------------------------------
@@ -551,6 +555,13 @@ class MTSerie:
             if len(x.mjd_tab)>0:
                 out.appendPeriod(TimePeriod(x.mjd_tab[0],x.mjd_tab[-1]))
         return out
+
+    def getTotalTimeWithoutGaps(self):
+        tp = self.getTimePeriods()
+        if tp:
+            return tp.totalTimeWithoutGaps()
+        else:
+            return None
 
     def alphnorm(self,atom='88Sr'):
         d = {
