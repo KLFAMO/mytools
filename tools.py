@@ -49,11 +49,20 @@ class TimePeriod:
    
 
 class TimePeriods:
+    """
+    Class for managing multiple time periods
+
+    :Changes:
+        2023-09-21 by Piotr Morzyński: Firs version
+    """
     def __init__(self, periods=None):
+        """
+        :param periods - list of elements of type TimePeriod
+        """
         self.periods = []
         if periods!=None:
-            for x in periods:
-                self.append(x)
+            for period in periods:
+                self.periods.append(period)
 
     def __str__(self):
         return "".join(['| '+x.__str__()+' ' for x in self.periods])
