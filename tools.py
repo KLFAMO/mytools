@@ -737,6 +737,10 @@ class MTSerie:
         if len(out.dtab)==0:
             return None
         return out
+    
+    def getrange_on_self(self,fmjd,tmjd):
+        self.rmrange(0,fmjd)
+        self.rmrange(tmjd, 1e6)
 
     def rmrange(self, fmjd, tmjd):
         ft, fN = self.mjd2tabNoandindex(fmjd)
